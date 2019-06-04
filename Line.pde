@@ -24,7 +24,7 @@ class Line implements Shape
     
     float denom = ((x1 - x2)*(y3 - y4)) - ((y1 - y2)*(x3 - x4));
     
-    if (!(denom < 0.05 && denom > - 0.05))
+    if (!IsNullWithEpsilon(denom))
     {
       float t = (((x1 - x3)*(y3 - y4)) - ((y1 - y3)*(x3 - x4)))/denom;
       float u = -(((x1 - x2)*(y1 - y3)) - ((y1 - y2)*(x1 - x3)))/denom;

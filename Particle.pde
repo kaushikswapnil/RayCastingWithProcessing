@@ -37,6 +37,7 @@ class Particle
    
    void Display()
    {
+      stroke(255);
       ellipse(m_Position.x, m_Position.y, m_Dimensions.x, m_Dimensions.y);
    }
    

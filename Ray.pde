@@ -3,10 +3,10 @@ class Ray
    PVector m_StartPos;
    PVector m_Dir;
    
-   Ray(float posX, float posY, float dirX, float dirY)
+   Ray(float posX, float posY, float dirTheta)
    {
       m_StartPos = new PVector(posX, posY);
-      m_Dir = new PVector(dirX, dirY);
+      m_Dir = PVector.fromAngle(dirTheta);
    }
    
    Ray(PVector start, PVector dir)
@@ -17,8 +17,8 @@ class Ray
    
    void Display()
    {
-       stroke(255);
-       line(m_StartPos.x, m_StartPos.y, m_StartPos.x + (m_Dir.x * 10), m_StartPos.y + (m_Dir.y * 10));
+       stroke(255, 0, 0);
+       line(m_StartPos.x, m_StartPos.y, m_StartPos.x + (m_Dir.x * 30), m_StartPos.y + (m_Dir.y * 30));
    }
    
    boolean Cast(ArrayList<Shape> shapes, ContactPoint outPoint)
@@ -32,10 +32,16 @@ class Ray
         if (shape.CheckIntersection(this, testPoint))
         {
            float distToContactPoint = PVector.dist(m_StartPos, testPoint.m_Position);
-           if (distToContactPoint < record)
+           if (IsLesserWithEpsilon(distToContactPoint, record))
            {
-               outPoint.SetPosition(testPoint.m_Position.x, testPoint.m_Position.y);
-               record = distToContactPoint;
+               PVector relDirToTestPoint = PVector.sub(testPoint.m_Position, m_StartPos);
+               relDirToTestPoint.normalize();
+               
+               if (IsEqualWithEpsilon(PVector.dot(relDirToTestPoint, m_Dir), 1))
+               {
+                  outPoint.SetPosition(testPoint.m_Position.x, testPoint.m_Position.y);
+                  record = distToContactPoint; 
+               }
            }
         }
       }

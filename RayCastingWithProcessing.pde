@@ -11,7 +11,15 @@ void setup()
   
   for (int iter = 0; iter < numObs; ++iter)
   {
-     obstacles.add(new Line(new PVector(random(width), random(height)), new PVector(random(width), random(height)))); 
+     if (random(2) - 1 < 0)
+     {
+       obstacles.add(new Line(new PVector(random(width), random(height)), new PVector(random(width), random(height))));
+     }
+     else
+     {
+       obstacles.add(new Circle(new PVector(random(width), random(height)), random(10, 80)));
+       //obstacles.add(new Circle(new PVector(width - 50, height/2), 50));//random(10, 80)));
+     }
   }
   
   obstacles.add(new Line(new PVector(0, 0), new PVector(0, height)));
@@ -19,15 +27,15 @@ void setup()
   obstacles.add(new Line(new PVector(width, 0), new PVector(width, height)));
   obstacles.add(new Line(new PVector(0, height), new PVector(width, height)));
   
-  particle = new Particle(width/2, height/2, 10, 10, 500);
+  particle = new Particle(width/2, height/2, 20, 360);
 }
 
 void draw()
 {
    background(0); 
    
-   particle.m_Position.x = mouseX;
-   particle.m_Position.y = mouseY;
+   //particle.m_Position.x = mouseX;
+   //particle.m_Position.y = mouseY;
    
    particle.Display();
    
@@ -57,4 +65,14 @@ boolean IsLesserWithEpsilon(float a, float b)
 boolean IsEqualWithEpsilon(float a, float b)
 {
   return IsNullWithEpsilon(a-b); 
+}
+
+boolean IsGreaterOrEqualWithEpsilon(float a, float b)
+{
+   return IsGreaterWithEpsilon(a, b) || IsEqualWithEpsilon(a, b); 
+}
+
+boolean IsLesserOrEqualWithEpsilon(float a, float b)
+{
+   return IsLesserWithEpsilon(a, b) || IsEqualWithEpsilon(a, b); 
 }

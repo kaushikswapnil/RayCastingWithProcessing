@@ -1,14 +1,14 @@
 class Particle
 {
    PVector m_Position;
-   PVector m_Dimensions;
+   float m_Radius;
    
    ArrayList<Ray> m_Rays;
    
-   Particle(float posX, float posY, float dimX, float dimY, int numRays)
+   Particle(float posX, float posY, float radius, int numRays)
    {
      m_Position = new PVector(posX, posY);
-     m_Dimensions = new PVector(dimX, dimY);
+     m_Radius = radius;
      
      m_Rays = new ArrayList<Ray>();
      
@@ -20,10 +20,10 @@ class Particle
      }
    }
    
-   Particle(PVector pos, PVector dimensions, int numRays)
+   Particle(PVector pos, float radius, int numRays)
    {
      m_Position = pos.get();
-     m_Dimensions = dimensions.get();
+     m_Radius = radius;
      
      m_Rays = new ArrayList<Ray>();
      
@@ -38,7 +38,8 @@ class Particle
    void Display()
    {
       stroke(255);
-      ellipse(m_Position.x, m_Position.y, m_Dimensions.x, m_Dimensions.y);
+      fill(255);
+      ellipse(m_Position.x, m_Position.y, m_Radius, m_Radius);
    }
    
    void UpdatePos()
@@ -64,7 +65,7 @@ class Particle
          ContactPoint contactPoint = new ContactPoint(0, 0);
          if (ray.Cast(shapes, contactPoint))
          {
-           stroke(255, 60);
+           stroke(255, 120);
            line(m_Position.x, m_Position.y, contactPoint.m_Position.x, contactPoint.m_Position.y);
          }
       }

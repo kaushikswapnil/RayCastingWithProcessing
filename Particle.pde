@@ -66,7 +66,8 @@ class Particle
          if (ray.Cast(shapes, contactPoint))
          {
            stroke(255, 120);
-           line(m_Position.x, m_Position.y, contactPoint.m_Position.x, contactPoint.m_Position.y);
+           point(contactPoint.m_Position.x, contactPoint.m_Position.y);
+           //line(m_Position.x, m_Position.y, contactPoint.m_Position.x, contactPoint.m_Position.y);
          }
       }
    }

@@ -27,7 +27,7 @@ void setup()
   obstacles.add(new Line(new PVector(width, 0), new PVector(width, height)));
   obstacles.add(new Line(new PVector(0, height), new PVector(width, height)));
   
-  particle = new Particle(width/2, height/2, 20, 360);
+  particle = new Particle(width/2, height/2, 20, 1000);
 }
 
 void draw()
@@ -41,10 +41,10 @@ void draw()
    
    particle.Update(obstacles);
    
-   for (Shape shape : obstacles)
-   {
-      shape.Display(); 
-   }
+   //for (Shape shape : obstacles)
+   //{
+      //shape.Display(); 
+   //}
 }
 
 boolean IsNullWithEpsilon(float value)
